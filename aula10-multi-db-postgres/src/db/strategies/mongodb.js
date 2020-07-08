@@ -5,6 +5,10 @@ class MongoDB extends ICrud {
         super()
     }
 
+    isConnected(){
+
+    }
+    
     create(item){
         console.log('O item foi salvo em MongoDB')
     }
