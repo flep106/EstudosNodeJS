@@ -8,6 +8,10 @@ class ContextStrategy  {
         this._database = strategy
     }
 
+    connect(){
+        return this._database.connect()
+    }
+
     isConnected(){
         return this._database.isConnected()
     }

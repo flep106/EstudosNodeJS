@@ -1,5 +1,6 @@
 // npm install sequelize
-// npm install pg-hstore pg
+//drivers do banco postgres
+    // npm install pg-hstore pg
 
 const Sequelize = require('sequelize')
 const driver = new Sequelize(
@@ -16,6 +17,8 @@ const driver = new Sequelize(
 )
 
 async function main() {
+    //procura o database 'heroes'
+    //define a tabela com as colunas
     const Herois = driver.define('heroes', {
         id: {
             type: Sequelize.INTEGER,
@@ -39,13 +42,15 @@ async function main() {
 
     await Herois.sync() //sincroniza com o BD
 
-    await Herois.create({
-        nome: 'Laterna Verde',
-        poder: 'Anel'
-    })
+    // await Herois.create({
+    //     nome: 'Laterna Verde',
+    //     poder: 'Anel'
+    // })
 
     const result = await Herois.findAll({
         raw: true,
+        //se quiser apenas alguns campos
+        //attributes: ['nome']
     })
 
 

@@ -1,26 +1,28 @@
 const ICrud = require('./interfaces/interfaceCrud')
 const Sequelize = require('sequelize')
 
-class Postgres extends ICrud{
-    constructor(){
+class Postgres extends ICrud {
+    constructor() {
         super()
         this._driver = null
         this._herois = null
-        this._connect()
+        //this._connect() - agora o conect é chamado no test
     }
 
-    async isConnected(){
+    async isConnected() {
         try {
             await this._driver.authenticate()
             return true
-        } 
+        }
         catch (error) {
             console.error('Fail!', error)
             return false
         }
     }
 
-    _connect() {  
+    // 0 - abre conexão com o banco
+    // 1 - com a conexão define o modelo de dados(tabela) com o objeto
+    async connect() {
         this._driver = new Sequelize(
             'heroes',
             'vandrilho',
@@ -33,10 +35,11 @@ class Postgres extends ICrud{
                 operatorsAliases: '0'
             }
         )
+        await this.defineModel()
     }
 
-    defineModel(){
-        this._herois = driver.define('heroes', {
+    async defineModel() {
+        this._herois = this._driver.define('heroes', {
             id: {
                 type: Sequelize.INTEGER,
                 required: true,
@@ -56,12 +59,29 @@ class Postgres extends ICrud{
             freezeTableName: false,
             timestamps: false
         })
-    
-        await Herois.sync() //sincroniza com o BD
+
+        await this._herois.sync() //sincroniza com o BD
     }
 
-    create(item){
-        console.log('Item cadastrado no Postgres')
+    async create(item) {
+        const { dataValues } = await this._herois.create(item)
+        return dataValues
+    }
+
+    //Se nao mandar ele coloca como vazio
+    async read(item = {}) {
+        const result = this._herois.findAll({ where: item, raw: true })
+        //console.log(result)
+        return result
+    }
+    
+    async update (id, item) {
+        console.log('item', item)
+        const r = await this._herois.update(item, {where: {id:id}})
+        console.log('r', r)
+        return r
+        //return this._herois.update(item, {where: {id: id}})
+        
     }
 }
 
