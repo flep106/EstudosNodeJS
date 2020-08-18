@@ -1,7 +1,7 @@
 docker run \
     --name postgres \
     -e POSTGRES_USER=vandrilho \
-    -e POSTGRES_PASSWORD=vandrilho1 \
+    -e POSTGRES_PASSWORD=padrao1 \
     -e POSTGRES_DB=heroes \
     -p 5432:5432 \
     -d \
@@ -38,7 +38,7 @@ docker run \
     --name mongodb \
     -p 27017:27017 \
     -e MONGO_INITDB_ROOT_USERNAME=admin \
-    -e MONGO_INITDB_ROOT_PASSWORD=admin \
+    -e MONGO_INITDB_ROOT_PASSWORD=padrao1 \
     -d \
     mongo:4
 
@@ -53,8 +53,8 @@ docker run \
 
 ## cria um usuario vandrilho e da permissão no banco Heroi, também criado
 docker exec -it mongodb \
-    mongo --host localhost -u admin -p admin --authenticationDatabase admin \
-    --eval "db.getSiblingDB('herois').createUser({user: 'vandrilho', pwd: 'vandrilho1', roles: [{role: 'readWrite', db: 'herois'}]})"
+    mongo --host localhost -u admin -p padrao1 --authenticationDatabase admin \
+    --eval "db.getSiblingDB('herois').createUser({user: 'vandrilho', pwd: 'padrao1', roles: [{role: 'readWrite', db: 'herois'}]})"
 
 ## comando para subir
 docker run --name mongodb

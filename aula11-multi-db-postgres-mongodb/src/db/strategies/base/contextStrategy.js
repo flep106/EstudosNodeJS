@@ -16,8 +16,8 @@ class ContextStrategy  {
         return this._database.isConnected()
     }
 
-    create(item) {
-        return this._database.create(item)
+    create(item, skip, limit) {
+        return this._database.create(item, skip, limit)
     }
 
     read(item){

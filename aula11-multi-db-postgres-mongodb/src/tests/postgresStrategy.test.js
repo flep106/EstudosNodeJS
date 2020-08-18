@@ -27,7 +27,7 @@ describe('Postgres Strategy', function(){
     it('Cadrastrar', async function(){
         const result = await context.create(MOCK_HEROI_CADASTRAR)
         delete result.id //remove a chave id do objeto
-        console.log('Resultado', result)
+        //console.log('Resultado', result)
         assert.deepEqual(result, MOCK_HEROI_CADASTRAR)
     })
 

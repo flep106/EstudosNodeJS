@@ -1,9 +1,11 @@
 const MongoDB = require("../db/strategies/mongodb")
 
 docker ps \
-docker exec - it f09dbebca205 \
-mongo - u vandrilho - p vandrilho1--authenticationDatabase herois
+//executar esse 2 comandos em conjunto
+docker exec -it 38466000aae2 \
+mongo localhost -u vandrilho -p admin --authenticationDatabase herois
 
+mongo mongodb:27017 -u vandrilho -p admin -authenticationDatabase herois
 
 //databse
 use herois
@@ -37,7 +39,14 @@ for (let i = 0; i < 1000; i++) {
 
 //UPDATE
 //CUIDADO! Se tiver outras colunas elas são apagadas, só preserva o ID
-db.herois.update({_id: ObjectId("5f1afb4f7a4ea8fdc3765e6c")}, {nome: 'Mulher Maravilha'})
+db.herois.update({_id: ObjectId("5f1afb4f7a4ea8fdc3765e6c")}, 
+                    {nome: 'Mulher Maravilha'})
 
 //Update como estamos acostumados em SQL
-db.herois.update({_id: ObjectId("5f1afb4f7a4ea8fdc3765e6c")}, {$set: {nome: 'Mulher Maravilha'} })
+db.herois.update({_id: ObjectId("5f1afb4f7a4ea8fdc3765e6c")}, 
+                    {$set: {nome: 'Mulher Maravilha'} })
+
+
+db.herois.update({poder: 'Velocidade'}, {$set: {poder: 'Super força'} })
+
+db.herois.find({poder: "Super força"}).limit(100).sort({ nome: -1 })
