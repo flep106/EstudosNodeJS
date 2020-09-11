@@ -23,7 +23,7 @@ let MOCK_HEROI_ID = ''
 
 let context = {}
 
-describe.only('MongoDB suite de testes', function () {
+describe('MongoDB suite de testes', function () {
     this.beforeAll(async () => {
         const connection = MongoDb.connect()
         context = new Context(new MongoDb(connection, HeroiSchema))
@@ -41,7 +41,7 @@ describe.only('MongoDB suite de testes', function () {
     //     assert.deepEqual(result, expected)
     // })
 
-    it('Cadastrar', async () =>{
+    it('Cadastrar', async () => {
         const { nome, poder } = await context.create(MOCK_HEROI_CADASTRAR)
         assert.deepEqual({nome, poder}, MOCK_HEROI_CADASTRAR)
     })
@@ -64,7 +64,7 @@ describe.only('MongoDB suite de testes', function () {
             nome: 'Pernalonga'
         })
 
-        assert.deepEqual(result.nModified, 1)
+        assert.deepEqual(result.n, 1)
     })
 
     it('Remover', async () => {

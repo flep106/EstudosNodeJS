@@ -60,7 +60,7 @@ describe('MongoDB suite de testes', function () {
             nome: 'Pernalonga'
         })
 
-        assert.deepEqual(result.nModified, 1)
+        assert.deepEqual(result.n, 1)
     })
 
     it.only('Remover', async () => {

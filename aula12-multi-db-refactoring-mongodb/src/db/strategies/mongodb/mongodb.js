@@ -11,7 +11,7 @@ const STATUS = {
 
 
 class MongoDB extends ICrud {
-    constructor(schema, connection){
+    constructor(connection, schema){
         super()
         this._schema = schema
         this._connection = connection
@@ -51,11 +51,11 @@ class MongoDB extends ICrud {
 
     update(id, item){
         console.log('id', id)
-        return this._herois.updateOne({id: id,  $set:  item})
+        return this._schema.updateOne({id: id,  $set:  item})
     }
 
     delete(id){
-        return this._herois.deleteOne({ "_id": id })
+        return this._schema.deleteOne({ "_id": id })
     }
 
 }

@@ -8,7 +8,7 @@ class ContextStrategy  {
         this._database = strategy
     }
 
-    connect(){
+    static connect(){
         return this._database.connect()
     }
 
