@@ -26,7 +26,7 @@ class Postgres extends ICrud {
         this._driver = new Sequelize(
             'heroes',
             'vandrilho',
-            'vandrilho1',
+            'admin123',
             // quoteIdentifiers = deixa collation que existe no banco por default
             {
                 host: 'localhost',

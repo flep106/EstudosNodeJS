@@ -1,17 +1,16 @@
-const ICrud = require('./interfaces/interfaceCrud')
+const ICrud = require('./../interfaces/interfaceCrud')
 const Sequelize = require('sequelize')
 
 class Postgres extends ICrud {
-    constructor() {
+    constructor(connection, schema) {
         super()
-        this._driver = null
-        this._herois = null
-        //this._connect() - agora o conect é chamado no test
+        this._connection = connection
+        this._schema = schema
     }
 
     async isConnected() {
         try {
-            await this._driver.authenticate()
+            await this._connection.authenticate()
             return true
         }
         catch (error) {
@@ -23,7 +22,7 @@ class Postgres extends ICrud {
     // 0 - abre conexão com o banco
     // 1 - com a conexão define o modelo de dados(tabela) com o objeto
     async connect() {
-        this._driver = new Sequelize(
+        this._connection = new Sequelize(
             'heroes',
             'vandrilho',
             'admin123',
@@ -38,33 +37,13 @@ class Postgres extends ICrud {
         await this.defineModel()
     }
 
-    async defineModel() {
-        this._herois = this._driver.define('heroes', {
-            id: {
-                type: Sequelize.INTEGER,
-                required: true,
-                primaryKey: true,
-                autoIncrement: true,
-            },
-            nome: {
-                type: Sequelize.STRING,
-                required: true
-            },
-            poder: {
-                type: Sequelize.STRING,
-                required: true
-            }
-        }, {
-            tableName: 'TB_HEROIS',
-            freezeTableName: false,
-            timestamps: false
-        })
-
-        await this._herois.sync() //sincroniza com o BD
+    async defineModel(connection, schema) {
+        const model = connection
+        await this._schema.sync() //sincroniza com o BD
     }
 
     async create(item) {
-        const { dataValues } = await this._herois.create(item)
+        const { dataValues } = await this._schema.create(item)
         return dataValues
     }
 
