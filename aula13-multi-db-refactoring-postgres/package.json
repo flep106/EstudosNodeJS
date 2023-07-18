@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mongoose": "^5.9.26",
+    "mongoose": "^5.13.20",
     "pg": "^8.2.1",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.2.3"
